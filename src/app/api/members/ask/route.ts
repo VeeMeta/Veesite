@@ -60,9 +60,10 @@ export async function POST(req: NextRequest) {
   // Destination is server-side only (never imported into client components).
   const to = (process.env.QUESTIONS_TO_EMAIL || "").split(",").map((s) => s.trim()).filter(Boolean);
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.QUESTIONS_FROM_EMAIL || process.env.RESEND_FROM_EMAIL || "BOW META Portal <portal@veemeta.com>";
+  // Sender comes only from the environment. No default address is baked in.
+  const from = process.env.QUESTIONS_FROM_EMAIL || process.env.RESEND_FROM_EMAIL || "";
 
-  if (apiKey && to.length) {
+  if (apiKey && from && to.length) {
     try {
       const r = await fetch("https://api.resend.com/emails", {
         method: "POST",

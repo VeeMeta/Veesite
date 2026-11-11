@@ -5,8 +5,9 @@ Workbook 01, **The Power Circle Protocol**, is live inside it. The other four in
 
 **Update (personal codes):** every member now has their own personal code. A shared invite code can be passed around anonymously; a personal code is tied to a member id, and removing that id from the env list revokes them after a redeploy. The old shared test code `BOWTEST-M26DOI` will **stop working**. Your personal test code (member id `duck-test`) is being sent to you separately — it is not stored in this package.
 
-Nothing in the existing site changes. The legacy `/portal` page, the header, the footer and `globals.css` are untouched.
-The new code lives under `/members` and `/api/members`.
+The legacy `/portal` page, the header, and the footer are untouched.
+`src/app/globals.css` and `src/app/layout.tsx` only rename the font variables, so the public site renders in Outfit instead of the browser default serif.
+The new portal lives under `/members` and `/api/members`.
 
 ## What members get
 
@@ -57,8 +58,9 @@ private/workbooks/power-circle-protocol.pdf
 ```
 **Changed**
 - `next.config.mjs`: adds `experimental.outputFileTracingIncludes` so the private PDF is bundled with the file route on Vercel.
-- `.env.example`: adds the portal and Resend variables.
+- `.env.example`: adds the portal and Resend variables (empty placeholders only).
 - `.gitignore`: ignores `.env.duck-test` as well as `.env` / `.env.local`.
+- `src/app/layout.tsx` and `src/app/globals.css`: point `--font-sans` / `--font-mono` at `--font-outfit` / `--font-jetbrains` so the self-referential custom properties no longer drop the site back to Times.
 
 No new npm dependencies.
 
@@ -80,7 +82,7 @@ Then run `npm run build`.
 | `QUESTIONS_TO_EMAIL` | `veemetax@gmail.com` | Where questions are delivered (server-side only). Comma-separate for more than one. Required for both the Resend path and the mailto fallback. |
 | `QUESTIONS_FROM_EMAIL` | `BOW META Portal <portal@veemeta.com>` | Sending address. Must be on a domain verified in Resend (see below). (`RESEND_FROM_EMAIL` is still accepted as a fallback name.) |
 
-Set them for Production and Preview, then redeploy (env changes only apply on a new deploy).
+Set them for Production and Preview, then redeploy (env changes only apply on a new deploy). None of these values are hardcoded in the app. Ask Vee uses Resend only when `RESEND_API_KEY`, `QUESTIONS_TO_EMAIL`, and a from-address (`QUESTIONS_FROM_EMAIL`, or `RESEND_FROM_EMAIL`) are all set. If the from-address is missing, members get the mailto fallback instead of a guessed sender.
 
 If `PORTAL_MEMBER_CODES` or `PORTAL_COOKIE_SECRET` is missing (or the list is empty / the secret is under 16 characters), the portal **fails closed**: nobody gets in, and the gate says "isn't switched on yet".
 
@@ -139,15 +141,9 @@ The route `/members/<slug>` picks it up automatically.
 
 All of the above passed locally (`next build` and `next start`, including a revoked-member bounce; see `qa/e2e_members.py`).
 
-## FYI: a site-wide font bug (not changed in this patch)
-`globals.css` defines `--font-sans: var(--font-sans), 'Outfit', …` (and the same for `--font-mono`).
+## Site-wide font fix (included)
+`globals.css` used to set `--font-sans: var(--font-sans), 'Outfit', …` (and the same pattern for `--font-mono`). A custom property that references itself is invalid, so the live site rendered in the browser's default serif (Times) instead of Outfit.
 
-A custom property that references itself is invalid, so the whole live site currently renders in the browser's default serif (Times), not Outfit. You can check this on veesite.vercel.app.
+This change renames the `next/font` variables in `src/app/layout.tsx` to `--font-outfit` and `--font-jetbrains`, and points `--font-sans` / `--font-mono` at those names. The members portal still loads the same faces under `--m-font-sans` / `--m-font-mono`.
 
-The portal works around it locally by loading Outfit/JetBrains Mono under `--m-font-sans`/`--m-font-mono`.
-
-To fix the whole site:
-1. Rename the `variable`s in `src/app/layout.tsx` to `--font-outfit` / `--font-jetbrains`.
-2. Use those names in `globals.css`: `--font-sans: var(--font-outfit), 'Outfit', system-ui, …`.
-
-Also consider pointing the header's "VIP Portal 🔒" link at `/members` once Vee is happy.
+The header's "VIP Portal 🔒" link still goes to the legacy `/portal` page. Point it at `/members` once Vee is happy.

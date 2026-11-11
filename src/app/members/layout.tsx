@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./members.css";
 
-// Same fonts as the root layout, under non-conflicting variable names.
-// (globals.css defines --font-sans in terms of itself, which browsers treat as
-// invalid, so the rest of the site currently falls back to a serif font.)
+// Portal-local font variables. The public site loads the same faces as
+// --font-outfit / --font-jetbrains in src/app/layout.tsx. These --m-font-*
+// names keep the workbook styles independent of that site-wide mapping.
 const outfit = Outfit({ subsets: ["latin"], variable: "--m-font-sans", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--m-font-mono", display: "swap" });
 
