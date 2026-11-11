@@ -1,3 +1,15 @@
+@property --nav-fade-left {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --nav-fade-right {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 :root {
   --bg-primary: #0b0d12;
   --bg-surface: #12151e;
@@ -37,6 +49,8 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  /* clip keeps the sticky header working; hidden would force overflow-y: auto and the header would scroll away */
+  overflow-x: clip;
 }
 
 body {
@@ -50,6 +64,8 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 /* Text Gradient Utility */
@@ -129,12 +145,15 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
 }
 
 .brand-group {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 /* X Spaces Live PFP Ring Logo Mark */
@@ -192,11 +211,45 @@ textarea:focus-visible {
   color: #debcff;
 }
 
+/* Horizontal tab scroller. On wide screens the row fits, so this does not scroll.
+   On narrow screens the nav shrinks (min-width: 0) and the page stays still. */
+.nav-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .nav-links {
   display: flex;
+  flex-wrap: nowrap;
   gap: 8px;
   list-style: none;
   align-items: center;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links > li {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  scroll-snap-align: start;
+}
+
+.nav-links > li:last-child {
+  scroll-snap-align: end;
 }
 
 .nav-link {
@@ -204,12 +257,18 @@ textarea:focus-visible {
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  padding: 8px 16px;
+  line-height: 1;
+  height: 44px;
+  min-height: 44px;
+  padding: 0 16px;
   border-radius: var(--radius-full);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-sans);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .nav-link:hover {
@@ -541,16 +600,60 @@ p {
   h2 {
     font-size: 1.4rem;
   }
+  .site-header {
+    padding: 8px 0;
+  }
   .nav-wrapper {
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-left: 16px;
+    padding-right: 0;
   }
   .nav-links {
-    gap: 16px;
+    gap: 8px;
+    /* Lets the last tab scroll clear of the screen edge and the fade. */
+    padding-inline-end: 36px;
+  }
+  .nav-scroll {
+    --nav-fade-left: 0px;
+    --nav-fade-right: 32px;
+    scroll-padding-inline-end: 36px;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--nav-fade-left),
+      #000 calc(100% - var(--nav-fade-right)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--nav-fade-left),
+      #000 calc(100% - var(--nav-fade-right)),
+      transparent
+    );
+    animation: nav-edge-fade linear both;
+    animation-timeline: scroll(self inline);
   }
   .footer-content {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+@keyframes nav-edge-fade {
+  0%, 10% {
+    --nav-fade-left: 0px;
+    --nav-fade-right: 32px;
+  }
+  22%, 78% {
+    --nav-fade-left: 24px;
+    --nav-fade-right: 32px;
+  }
+  90%, 100% {
+    --nav-fade-left: 24px;
+    --nav-fade-right: 0px;
   }
 }
 
