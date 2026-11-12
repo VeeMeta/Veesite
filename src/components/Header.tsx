@@ -40,7 +40,7 @@ export default function Header({ currentPath }: HeaderProps) {
             </Link>
           </div>
 
-          <nav aria-label="Main Navigation">
+          <nav className="nav-scroll" aria-label="Main Navigation">
             <ul className="nav-links">
               <li>
                 <Link
