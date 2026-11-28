@@ -70,6 +70,16 @@ export default function Header({ currentPath }: HeaderProps) {
               </li>
               <li>
                 <Link
+                  href="/hardline"
+                  className={`nav-link ${
+                    currentPath === "/hardline" ? "active" : ""
+                  }`}
+                >
+                  Hardline
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/work-with-me"
                   className={`nav-link ${
                     currentPath === "/work-with-me" ? "active" : ""

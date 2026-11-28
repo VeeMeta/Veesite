@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { SEED_ARTICLES } from "@/data/siteConfig";
+import { SEED_ARTICLES, absoluteUrl } from "@/data/siteConfig";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://veesite.vercel.app";
+  const baseUrl = absoluteUrl("/");
   const currentDate = new Date().toISOString().split("T")[0];
 
   const routes: MetadataRoute.Sitemap = [
@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/work-with-me`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/hardline`,
       lastModified: currentDate,
       changeFrequency: "monthly",
       priority: 0.8,

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="container footer-content">
-        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+        <div className="footer-identity">
           <a
             href={SITE_CONFIG.xUrl}
             target="_blank"
@@ -26,7 +26,7 @@ export default function Footer() {
               </div>
             </div>
           </a>
-          <div>
+          <div className="footer-identity-copy">
             <p style={{ margin: 0, fontWeight: 600, color: "var(--text-primary)" }}>
               {SITE_CONFIG.displayName} ({SITE_CONFIG.handle})
             </p>
@@ -40,8 +40,11 @@ export default function Footer() {
               >
                 Doginal Dogs
               </a>
-               Domain:{" "}
-              <span>{SITE_CONFIG.domainPlaceholder}</span>
+              {" "}
+              Domain:{" "}
+              <a href={SITE_CONFIG.canonicalHost} className="descriptive-link">
+                {SITE_CONFIG.domainPlaceholder}
+              </a>
             </p>
           </div>
         </div>
@@ -96,7 +99,12 @@ export default function Footer() {
 
       <div className="container footer-attribution">
         <p style={{ margin: 0 }}>
-          Website created by{" "}
+          <Link href="/work-with-me" className="attribution-action">
+            Want to work with us? Get in touch &rarr;
+          </Link>
+        </p>
+        <p className="site-credit">
+          Site by{" "}
           <a
             href={SITE_CONFIG.developerUrl}
             target="_blank"
@@ -104,15 +112,6 @@ export default function Footer() {
             className="attribution-link"
           >
             {SITE_CONFIG.developerName}
-          </a>
-          {" "}• Want a custom website built?{" "}
-          <a
-            href={SITE_CONFIG.developerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="attribution-action"
-          >
-            Get in touch &rarr;
           </a>
         </p>
       </div>

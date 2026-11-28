@@ -1,14 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SITE_CONFIG, ENTITY_FAQS, getSortedArticles, MEDIA_ASSETS } from "@/data/siteConfig";
+import { SITE_CONFIG, ENTITY_FAQS, getSortedArticles, MEDIA_ASSETS, absoluteUrl } from "@/data/siteConfig";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
-  title: "Vee (@veemeta) | Chief Roar Officer at Doginal Dogs & CSN Founding Member",
   description:
     "Vee — @veemeta. Chief Roar Officer at Doginal Dogs. Founding member of Crypto Spaces Network. Toronto.",
   alternates: {
-    canonical: "https://veesite.vercel.app",
+    canonical: absoluteUrl("/"),
   },
   openGraph: {
     title: "Vee (@veemeta) | Chief Roar Officer at Doginal Dogs",
@@ -36,8 +35,8 @@ export default function HomePage() {
     name: SITE_CONFIG.legalName,
     alternateName: [SITE_CONFIG.knownAs, SITE_CONFIG.handle],
     homeLocation: { "@type": "Place", name: "Toronto, Canada" },
-    url: "https://veesite.vercel.app",
-    image: `https://veesite.vercel.app${MEDIA_ASSETS.profpic.heroPath}`,
+    url: absoluteUrl("/"),
+    image: absoluteUrl(MEDIA_ASSETS.profpic.heroPath),
     sameAs: [SITE_CONFIG.xUrl, SITE_CONFIG.doginalDogsUrl],
     jobTitle: "Chief Roar Officer",
     worksFor: {
@@ -86,14 +85,20 @@ export default function HomePage() {
             Vee — @veemeta. Chief Roar Officer at Doginal Dogs. Founding member of Crypto Spaces Network. Toronto.
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
-            <Link href="/about" className="btn btn-primary">
-              About Vee
+          <div className="hero-actions">
+            <Link href={SITE_CONFIG.hardlinePath} className="btn btn-primary">
+              Get the DIY Kit — $497
             </Link>
-            <Link href="/work-with-me" className="btn btn-secondary">
-              Work with Vee &rarr;
-            </Link>
+            <a
+              href={SITE_CONFIG.spaceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
+              Join us live · 8:30 AM ET
+            </a>
           </div>
+          <p className="space-line">{SITE_CONFIG.spaceLine}</p>
         </section>
 
         {/* Featured Initiatives */}
@@ -162,13 +167,13 @@ export default function HomePage() {
                 )}
               </div>
               <a
-                href={SITE_CONFIG.xUrl}
+                href={SITE_CONFIG.csnPartnerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="descriptive-link"
                 style={{ marginTop: "16px" }}
               >
-                Listen to Vee on CSN {"→"}
+                Partner with us on CSN {"→"}
               </a>
             </div>
 

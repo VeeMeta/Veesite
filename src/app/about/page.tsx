@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { SITE_CONFIG, ENTITY_FAQS, MEDIA_ASSETS } from "@/data/siteConfig";
+import Link from "next/link";
+import { SITE_CONFIG, ENTITY_FAQS, MEDIA_ASSETS, absoluteUrl } from "@/data/siteConfig";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
@@ -7,7 +8,7 @@ export const metadata = {
   description:
     "Veronica Michelle Campbell, known as Vee Meta (@veemeta), is a Canadian host, speaker, and strategist from Toronto. Chief Roar Officer at Doginal Dogs and founding member of Crypto Spaces Network.",
   alternates: {
-    canonical: "https://veesite.vercel.app/about",
+    canonical: absoluteUrl("/about"),
   },
   openGraph: {
     title: "About Vee (@veemeta)",
@@ -31,8 +32,8 @@ export default function AboutPage() {
     name: SITE_CONFIG.legalName,
     alternateName: [SITE_CONFIG.knownAs, SITE_CONFIG.handle],
     homeLocation: { "@type": "Place", name: "Toronto, Canada" },
-    url: "https://veesite.vercel.app/about",
-    image: `https://veesite.vercel.app${MEDIA_ASSETS.headshot1.cardPath}`,
+    url: absoluteUrl("/about"),
+    image: absoluteUrl(MEDIA_ASSETS.headshot1.cardPath),
     sameAs: [SITE_CONFIG.xUrl, SITE_CONFIG.doginalDogsUrl],
     jobTitle: "Chief Roar Officer",
     worksFor: {
@@ -92,6 +93,17 @@ export default function AboutPage() {
               <p style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "1.25rem" }}>
                 Clarity, Courage, Conviction.<br />
                 Build what matters.
+              </p>
+              <div className="hero-actions" style={{ justifyContent: "flex-start", marginTop: 8 }}>
+                <Link href="/work-with-me" className="btn btn-primary">
+                  Work with Vee
+                </Link>
+              </div>
+              <p className="space-line" style={{ marginLeft: 0 }}>
+                <a href={SITE_CONFIG.spaceUrl} target="_blank" rel="noopener noreferrer">
+                  {SITE_CONFIG.spaceLine}
+                </a>
+                {" "}We go live at 8:30 AM ET.
               </p>
             </div>
 

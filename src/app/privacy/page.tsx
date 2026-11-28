@@ -1,17 +1,16 @@
-import Link from "next/link";
-import { SITE_CONFIG } from "@/data/siteConfig";
+import { SITE_CONFIG, absoluteUrl } from "@/data/siteConfig";
 
 export const metadata = {
-  title: "Privacy Policy | Vee (@veemeta)",
+  title: "Privacy Policy",
   description:
-    "Privacy policy for veesite.vercel.app. Short, plain-language privacy practices.",
+    "Privacy policy for www.veemeta.com. Email checkout, invited member portals, and limited analytics.",
   alternates: {
-    canonical: "https://veesite.vercel.app/privacy",
+    canonical: absoluteUrl("/privacy"),
   },
   openGraph: {
-    title: "Privacy Policy | Vee (@veemeta)",
+    title: "Privacy Policy",
     description:
-      "Privacy policy for veesite.vercel.app. No account storage, mailto contact only, no cookies beyond basic Vercel hosting.",
+      "Privacy policy for www.veemeta.com. Payment is arranged by email. Members and VIP portals are invite-only.",
   },
 };
 
@@ -23,40 +22,40 @@ export default function PrivacyPage() {
 
         <div className="answer-lead">
           <p>
-            This site is a personal brand page for Vee (@veemeta). We respect your privacy and keep data collection to a minimum.
+            This site is the personal brand page for Vee (@veemeta). We keep data collection small, and we say plainly where an account or a payment actually exists.
           </p>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "28px", marginTop: "32px" }}>
           <div>
-            <h2>1. Accounts &amp; Data Storage</h2>
+            <h2>1. Accounts</h2>
             <p>
-              This website does not require or store user accounts, logins, passwords, or personal profile databases.
+              The public pages do not ask you to create an account. The members portal and the VIP portal are for people we invite. Members sign in with a personal code we issue. We do not run a public signup, and we do not sell account data.
             </p>
           </div>
 
           <div>
-            <h2>2. Contact &amp; Email Handling</h2>
+            <h2>2. Contact, Email &amp; Payment</h2>
             <p>
-              The only contact mechanism provided on this site is direct email via standard mailto links (
+              The contact path on this site is email (
               <a href={SITE_CONFIG.contactMailto} className="descriptive-link">
                 {SITE_CONFIG.contactEmail}
               </a>
-              ). Any email you send is handled directly by your email provider and ours. We do not operate an online contact web form or database.
+              ). Offers such as the HAP DIY Kit are paid that way: you email us, we reply with a payment link, and the kit follows once it is paid. We do not run a card checkout on this website. Messages you send are handled by your email provider and ours.
             </p>
           </div>
 
           <div>
-            <h2>3. Newsletters &amp; Analytics Cookies</h2>
+            <h2>3. Newsletters &amp; Analytics</h2>
             <p>
-              We do not run an email newsletter or marketing subscription list. We do not deploy third-party advertising tracking scripts or behavioral cookies. The site uses basic Vercel hosting analytics to monitor traffic and system performance.
+              We do not run an email newsletter from this site. We do not deploy third-party advertising trackers. The site uses Vercel hosting analytics to see traffic and whether pages are healthy.
             </p>
           </div>
 
           <div>
             <h2>4. Compliance Note</h2>
             <p>
-              This site is a lightweight informational showcase. We do not claim formal GDPR certification or corporate privacy framework seals.
+              This is a personal brand site with a few real offers and invited portals. We do not claim a formal GDPR certification or a corporate privacy seal.
             </p>
           </div>
 

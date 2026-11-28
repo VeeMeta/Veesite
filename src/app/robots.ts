@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
+import { absoluteUrl } from "@/data/siteConfig";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://veesite.vercel.app";
+  const baseUrl = absoluteUrl("/");
 
   return {
     rules: [

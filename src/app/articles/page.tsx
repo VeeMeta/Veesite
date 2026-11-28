@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getSortedArticles } from "@/data/siteConfig";
+import { getSortedArticles, absoluteUrl } from "@/data/siteConfig";
 
 export const metadata = {
-  title: "Essays & Articles by Vee (@veemeta)",
+  title: "Essays & Articles",
   description:
     "Index of essays by Vee (@veemeta) covering personal brand strategy, Chief Roar Officer leadership at Doginal Dogs, live voice media, and community governance.",
   alternates: {
-    canonical: "https://veesite.vercel.app/articles",
+    canonical: absoluteUrl("/articles"),
   },
 };
 

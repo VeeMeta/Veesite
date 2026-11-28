@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { SEED_ARTICLES, SITE_CONFIG } from "@/data/siteConfig";
+import { SEED_ARTICLES, SITE_CONFIG, absoluteUrl } from "@/data/siteConfig";
+import IncomeCta from "@/components/IncomeCta";
 import JsonLd from "@/components/JsonLd";
 
 interface ArticlePageProps {
@@ -21,17 +22,18 @@ export function generateMetadata({ params }: ArticlePageProps) {
   if (!article) return {};
 
   return {
-    title: `${article.title} | Vee (@veemeta)`,
+    title: article.title,
     description: article.answerLead,
     alternates: {
-      canonical: `https://veesite.vercel.app/articles/${article.slug}`,
+      canonical: absoluteUrl(`/articles/${article.slug}`),
     },
     openGraph: {
       title: article.title,
       description: article.answerLead,
+      url: absoluteUrl(`/articles/${article.slug}`),
       type: "article",
       publishedTime: article.date,
-      authors: [SITE_CONFIG.displayName],
+      authors: [SITE_CONFIG.authorName],
       images: [
         {
           url: article.image,
@@ -58,18 +60,19 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
     datePublished: article.date,
     dateModified: article.date,
     description: article.answerLead,
-    image: `https://veesite.vercel.app${article.image}`,
+    image: absoluteUrl(article.image),
+    mainEntityOfPage: absoluteUrl(`/articles/${article.slug}`),
     author: {
       "@type": "Person",
-      name: SITE_CONFIG.displayName,
+      name: SITE_CONFIG.authorName,
       alternateName: SITE_CONFIG.handle,
-      url: "https://veesite.vercel.app",
-      sameAs: SITE_CONFIG.xUrl,
+      url: absoluteUrl("/"),
+      sameAs: SITE_CONFIG.spaceUrl,
     },
     publisher: {
       "@type": "Person",
-      name: SITE_CONFIG.displayName,
-      url: "https://veesite.vercel.app",
+      name: SITE_CONFIG.authorName,
+      url: absoluteUrl("/"),
     },
   };
 
@@ -121,27 +124,11 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
             ))}
           </div>
 
-          <div
-            style={{
-              marginTop: "48px",
-              paddingTop: "24px",
-              borderTop: "1px solid var(--border-color)",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div className="article-end">
+            <IncomeCta />
             <Link href="/articles" className="descriptive-link">
               {"←"} Back to all articles
             </Link>
-            <a
-              href={SITE_CONFIG.xUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="descriptive-link"
-            >
-              Discuss on X (@veemeta) {"→"}
-            </a>
           </div>
         </article>
       </div>

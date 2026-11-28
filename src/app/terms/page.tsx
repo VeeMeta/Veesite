@@ -1,17 +1,16 @@
-import Link from "next/link";
-import { SITE_CONFIG } from "@/data/siteConfig";
+import { SITE_CONFIG, absoluteUrl } from "@/data/siteConfig";
 
 export const metadata = {
-  title: "Terms of Service | Vee (@veemeta)",
+  title: "Terms of Service",
   description:
-    "Terms of service for veesite.vercel.app. Short, plain-language usage terms.",
+    "Terms of service for www.veemeta.com. Plain-language terms for a personal brand site, email checkout, and invited portals.",
   alternates: {
-    canonical: "https://veesite.vercel.app/terms",
+    canonical: absoluteUrl("/terms"),
   },
   openGraph: {
-    title: "Terms of Service | Vee (@veemeta)",
+    title: "Terms of Service",
     description:
-      "Terms of service for veesite.vercel.app. Personal brand site notice, inquiry-only offers, and disclaimer.",
+      "Terms for www.veemeta.com. Offers are paid by email. Members and VIP portals are for people we invite.",
   },
 };
 
@@ -23,7 +22,7 @@ export default function TermsPage() {
 
         <div className="answer-lead">
           <p>
-            Welcome to veesite.vercel.app. By visiting or viewing this site, you agree to these straightforward terms.
+            Welcome to {SITE_CONFIG.domainPlaceholder}. By visiting this site, you agree to these straightforward terms.
           </p>
         </div>
 
@@ -31,28 +30,35 @@ export default function TermsPage() {
           <div>
             <h2>1. Personal Brand Page</h2>
             <p>
-              This website serves as the personal brand and identity portal for Vee (@veemeta). It is not the official corporate website of Doginal Dogs or any other entity, though her role as Chief Roar Officer is accurately represented.
+              This website is the personal brand page for Vee (@veemeta). It is not the official corporate website of Doginal Dogs or any other entity, though her role as Chief Roar Officer is accurately represented.
             </p>
           </div>
 
           <div>
-            <h2>2. Inquiry-Only Offers</h2>
+            <h2>2. Offers &amp; Payment</h2>
             <p>
-              Work paths on this site are inquiry-only. No transactions, pricing agreements, or binding commitments are formed through website browsing. Engagements are evaluated individually via email.
+              Listed offers, including the HAP DIY Kit ($497 one-time) and Brand Lock-In Lab ($7 a month), are real. Payment is arranged by email: you write us, we reply with a payment link, and browsing this site does not charge you or finish a purchase. Custom consults are priced one by one after we hear what you need. The $497 DIY Kit is credited in full toward Guided Install when you upgrade within 30 days.
             </p>
           </div>
 
           <div>
-            <h2>3. No Financial, Investment, or Legal Advice</h2>
+            <h2>3. Members &amp; VIP Portals</h2>
             <p>
-              Content, articles, briefings, and audio commentary linked or published on this site are for informational and cultural discussion purposes only. Nothing on this website constitutes financial, investment, trading, or legal advice.
+              A members portal and a VIP portal exist for people we have already invited. Walking the public site does not open an account. Access to those portals follows the invite we send you.
             </p>
           </div>
 
           <div>
-            <h2>4. Content Updates</h2>
+            <h2>4. No Financial, Investment, or Legal Advice</h2>
             <p>
-              Information, articles, and site content may be updated, amended, or revised over time to reflect current initiatives and public commentary.
+              Content, articles, briefings, and audio commentary linked or published on this site are for informational and cultural discussion. Nothing on this website is financial, investment, trading, or legal advice.
+            </p>
+          </div>
+
+          <div>
+            <h2>5. Content Updates</h2>
+            <p>
+              Information, articles, prices, and site content may be updated over time to match what we are actually offering.
             </p>
           </div>
 

@@ -102,11 +102,14 @@ export const MEDIA_ASSETS: Record<string, MediaAsset> = {
 export const SITE_CONFIG = {
   displayName: "Vee",
   handle: "@veemeta",
+  authorName: "Vee (Veronica Michelle Campbell)",
   role: "Chief Roar Officer at Doginal Dogs | Founding Member of CSN",
   xUrl: "https://x.com/veemeta?s=20",
+  spaceUrl: "https://x.com/veemeta",
+  spaceLine: "Daily AWAKENING ALPHA Space — follow @veemeta and turn on notifications.",
   doginalDogsUrl: "https://www.doginaldogs.com",
-  canonicalHost: "https://veesite.vercel.app",
-  domainPlaceholder: "veesite.vercel.app",
+  canonicalHost: "https://www.veemeta.com",
+  domainPlaceholder: "https://www.veemeta.com",
   contactEmail: "Veemetax@gmail.com",
   contactMailto: "mailto:Veemetax@gmail.com",
   developerName: "Kyle Kinkin",
@@ -115,9 +118,38 @@ export const SITE_CONFIG = {
   legalName: "Veronica Michelle Campbell",
   knownAs: "Vee Meta",
   hometown: "Toronto, Canada",
-  csnUrl: "https://x.com/veemeta",
+  csnPartnerUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLSedb_dQpbthdkqZyanxY9e95qVQtOHSL7BItpzifhx0tFmxLw/viewform?usp=pp_url&entry.930523731=Vee+%28%40veemeta%29",
   subsUrl: "https://x.com/veemeta/creator-subscriptions/subscribe",
+  quickScoreUrl:
+    "https://calendar.google.com/calendar/appointments/schedules/AcZssZ23LIV9Exs_DyhOX4K2UA2TL96bIOD2o_uB_jFXvrtWkProajI56FJqyznDwY7ltMo89FRBWLEd",
+  hardlinePath: "/hardline",
 };
+
+export const HAP_CHECKOUT_SUBJECT = "HAP DIY Kit checkout request";
+
+export const HAP_CHECKOUT_BODY = [
+  "Hi Vee,",
+  "",
+  "I'd like the Hardline API Protocol (HAP) DIY Kit — $497 one-time.",
+  "If I move to Guided Install within 30 days, please credit the full $497.",
+  "",
+  "Project:",
+  "Best email for the payment link and the kit:",
+  "",
+  "Thanks!",
+].join("\n");
+
+/** Email checkout. Payment is arranged by reply — no on-site processor URL. */
+export function hapCheckoutMailto(): string {
+  return `mailto:${SITE_CONFIG.contactEmail}?subject=${encodeURIComponent(HAP_CHECKOUT_SUBJECT)}&body=${encodeURIComponent(HAP_CHECKOUT_BODY)}`;
+}
+
+export function absoluteUrl(path = "/"): string {
+  const base = SITE_CONFIG.canonicalHost.replace(/\/$/, "");
+  if (!path || path === "/") return base;
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
 
 export const ENTITY_FAQS: FaqItem[] = [
   {
@@ -145,11 +177,13 @@ export const ENTITY_FAQS: FaqItem[] = [
 export const WORK_FAQS: FaqItem[] = [
   {
     question: "How can you work with Vee?",
-    answer: "Send a quick note to Veemetax@gmail.com about what you're after.",
+    answer:
+      "Get the HAP DIY Kit, join Brand Lock-In Lab, partner with us on CSN, or send a note to Veemetax@gmail.com for a custom consult.",
   },
   {
     question: "What does it cost?",
-    answer: "Pricing is custom. A quick note on what you want is enough to start.",
+    answer:
+      "The HAP DIY Kit is $497 one-time, and that amount is credited in full toward Guided Install within 30 days. Brand Lock-In Lab is $7 a month. Custom consults are priced one by one.",
   },
 ];
 
